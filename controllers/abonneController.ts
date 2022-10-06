@@ -1,70 +1,66 @@
-const router = require("express").Router();
-const bodyParser = require("body-parser");
-const abonne = require("../models/abonneModele");
-
+import bodyParser from "body-parser";
+import Abonne from "../models/abonneModele";
+import express from "express";
+const router = express.Router();
 //middleware goes here
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 //endPoint for posting Abonné
-router.post("/abonne", async (req, res) => {
+export const createAbonner = async (data) => {
   try {
-    const newAbonne = await abonne.create({
-      aboName: req.body.abonnement,
-      compteurNumber: req.body.compteur,
-      quartier: req.body.quartier,
-      cellule: req.body.cellule,
-      numParcelle: req.body.parcelle,
-      typeAbonnement: req.body.type,
+    const newAbonne = await Abonne.create({
+      aboName: data.abonnement,
+      compteurNumber: data.compteur,
+      quartier: data.quartier,
+      cellule: data.cellule,
+      numParcelle: data.parcelle,
+      typeAbonnement: data.type,
     });
-    return res.json(newAbonne);
+    return newAbonne;
   } catch (error) {
-    return res.json(error);
+    return error;
   }
-});
+};
 
 //Api for getting Abonné
-router.get("/abonne", async (req, res) => {
+export const getAbonnes = async () => {
   try {
-    const abonnesFound = await abonne.find({});
-    if (!abonnesFound) {
-      res.json({
-        status: false,
-        message: "pas des abonnés Maintenant...",
-      });
-    }
-    return res.status(200).json(abonnesFound);
-  } catch (error) {
-    return res.json(error);
-  }
-});
+    const abonnesFound = await Abonne.find({});
+    console.log(abonnesFound);
 
-router.put("/abonne", async () => {
+    return abonnesFound;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const modifierAbonner = async (compteur, data) => {
   try {
-    const abonneFind = await abonne.findOneAndUpdate(
+    const abonneFind = await Abonne.findOneAndUpdate(
       {
-        compteurNumber: req.body.compteur,
+        compteurNumber: compteur,
       },
       {
-        aboName: req.body.abonnement,
-        compteurNumber: req.body.compteur,
-        quartier: req.body.quartier,
-        cellule: req.body.cellule,
-        numParcelle: req.body.parcelle,
-        typeAbonnement: req.body.type,
+        aboName: data.abonnement,
+        compteurNumber: data.compteur,
+        quartier: data.quartier,
+        cellule: data.cellule,
+        numParcelle: data.parcelle,
+        typeAbonnement: data.type,
       },
       { new: true }
     );
     if (!abonneFind) {
-      return res.json({
+      return {
         status: false,
         message: "abonné not updated...",
-      });
+      };
     }
-    return res.json(abonneFind);
+    return abonneFind;
   } catch (error) {
-    return res.status(400).json(error);
+    return error;
   }
-});
+};
 
-module.exports = router;
+export default router;

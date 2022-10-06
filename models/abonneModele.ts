@@ -1,7 +1,7 @@
 //init code
-const mongoose = require("mongoose");
+import { Schema, model, models } from "mongoose";
 
-const abonneSchema = mongoose.Schema({
+const abonneSchema = new Schema({
   aboName: {
     type: String,
     required: true,
@@ -33,5 +33,5 @@ const abonneSchema = mongoose.Schema({
   },
 });
 
-const Abonne = mongoose.model("Abonne", abonneSchema, "abonnes");
-module.exports = Abonne;
+const Abonne = models.Abonne || model("Abonne", abonneSchema, "abonnes");
+export default Abonne;

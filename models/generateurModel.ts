@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-const codeUniteSchema = mongoose.Schema({
+import { model, models, Schema, SchemaTypes } from "mongoose";
+const codeUniteSchema = new Schema({
   userName: {
     type: String,
     required: true,
@@ -22,7 +22,7 @@ const codeUniteSchema = mongoose.Schema({
     required: true,
   },
   operationId: {
-    type: mongoose.SchemaTypes.ObjectId,
+    type: SchemaTypes.ObjectId,
     ref: "Operation",
     required: true,
   },
@@ -32,5 +32,5 @@ const codeUniteSchema = mongoose.Schema({
   },
 });
 
-const Code =mongoose.models.Code|| mongoose.model("Code", codeUniteSchema, "codes");
+const Code = models.Code || model("Code", codeUniteSchema, "codes");
 export default Code;

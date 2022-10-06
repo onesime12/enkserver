@@ -1,11 +1,10 @@
-const router = require("express").Router();
-const bodyParser = require("body-parser");
-const Code = require("../models/generateurModel");
-const generateCode = require("../utils/generateurCode");
+import express from "express";
 
+import Code from "../models/generateurModel";
+import generateCode from "../utils/generateurCode";
+const router = express.Router();
 //middleware goes here
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
+router.use(express.json());
 
 router.post("/code", async (req, res) => {
   try {
@@ -68,4 +67,4 @@ router.get("/code", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
