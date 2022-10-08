@@ -12,7 +12,7 @@ export const postCode=async (data) => {
       prix: data.prix,
       code: generateCode(20),
       numCompteur: data.numCompteur,
-      operationId: data.userId,
+      operationId: data.operationId,
     });
     if (!newCode) {
       const errorMessage = "Fail while Creating compter number code...";
