@@ -7,7 +7,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 //endPoint for posting Abonné
-export const createAbonner = async (data) => {
+export const postAbonne = async (data) => {
   try {
     const newAbonne = await Abonne.create({
       aboName: data.abonnement,
@@ -17,8 +17,11 @@ export const createAbonner = async (data) => {
       numParcelle: data.parcelle,
       typeAbonnement: data.type,
     });
+    console.log(newAbonne);
+    
     return newAbonne;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
@@ -28,14 +31,14 @@ export const getAbonnes = async () => {
   try {
     const abonnesFound = await Abonne.find({});
     console.log(abonnesFound);
-
     return abonnesFound;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
 
-export const modifierAbonner = async (compteur, data) => {
+export const putAbonne = async (compteur, data) => {
   try {
     const abonneFind = await Abonne.findOneAndUpdate(
       {

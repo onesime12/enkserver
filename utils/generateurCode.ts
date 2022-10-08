@@ -1,4 +1,4 @@
-function generateCode(length) {
+export function generateCode(length) {
   var text = "";
   var possible = "1234567890";
 
