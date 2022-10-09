@@ -27,7 +27,7 @@ export const postCode=async (data) => {
 export const getCode =async () => {
   try {
     const codeFind=await Code.find({});
-    if (codeFind) {
+    if (!codeFind) {
       const errorMessage = "Fail while getting compter numbers codes...";
       return errorMessage;
     }
